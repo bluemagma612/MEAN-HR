@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var db = mongoose.connection;
-var dbUrl = 'mongodb'
+var dbUrl = 'mongodb://localhost/humanresources';
+
 var TeamSchema = new Schema({
 	name: {
 		type: String,
