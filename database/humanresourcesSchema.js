@@ -17,17 +17,17 @@ var EmployeeSchema = new Schema({
 		first: {
 			type: String,
 			required: true
-		}
+		},
 		last: {
 			type: String,
 			required: true
 		}
 	},
-	team {
+	team: {
 		type: Schema.Types.ObjectId,
 		ref: 'Team'
 	},
-	image {
+	image: {
 		type: String,
 		default: 'images/user.png'
 	},
@@ -56,9 +56,10 @@ function insertTeams (callback) {
 		name: 'Accounting'
 	}], function (error, pd, devops, acct) {
 		if (error) {
+			console.error(error);
 			return callback(error);
 		} else {
-			console.info('teams sucessfully added sir');
+			console.info('teams sucessfully added sir!');
 			callback(null, pd, devops, acct);			
 		}
 	});
@@ -72,7 +73,7 @@ function retrieveEmployee (data, callback) {
 			return callback (error);
 		} else {
 			console.log('*** Single Employee Result ***');
-			console.dir(result);
+			//console.dir(result);
 			callback(null, data);
 		}
 	});
@@ -86,64 +87,64 @@ function retrieveEmployees (data, callback) {
 			return callback(error);
 		} else {
 			console.log('*** Multiple Employees Result ***');
-			console.dir(results);
+			//console.dir(results);
 			callback(null, data);
 		}
 	});
 }
 
 function insertEmployees (pd, devops, acct, callback) {
-	Employee.create([{
-		name: {
-			first: 'John',
-			last: 'Adams'
-		},
-		team: pd._id,
-		address: {
-			lines: ['2 Lincoln Memorial Cir NW'],
-			zip: 20037
-			}
-		}, {
-		name: {
-			first: 'Thomas',
-			last: 'Jefferson'
-			},
-			team: devops._id,
-		    address: {
-		      lines: ['1600 Pennsylvania Avenue', 'White House'],
-		      postal: '20500'
-		    }
-		}, {
-		name: {
-		    first: 'James',
-		    last: 'Madison'
-		    },
-		    team: acct._id,
-		    address: {
-		      lines: ['2 15th St NW', 'PO Box 8675309'],
-		      postal: '20007'
-		    }
-		}, {
-		name: {
-		      first: 'James',
-		      last: 'Monroe'
-		    },
-		    team: acct._id,
-		    address: {
-		      lines: ['1850 West Basin Dr SW', 'Suite 210'],
-		      postal: '20242'
-		    }
-	}], function (error, johnadams) {
-		if (error) {
-			return callback(error);
-		} else {
-			console.info('employees successfully added sir');
-			callback(null, {
-				team: pd,
-				employee: johnadams
-			});
-		}
-	})
+  Employee.create([{
+    name: {
+      first: 'John',
+      last: 'Adams'
+    },
+    Team: devops._id,
+    address: {
+      lines: ['2 Lincoln Memorial Cir NW'],
+      postal: '20037'
+    }
+  }, {
+    name: {
+      first: 'Thomas',
+      last: 'Jefferson'
+    },
+    Team: pd._id,
+    address: {
+      lines: ['1600 Pennsylvania Avenue', 'White House'],
+      postal: '20500'
+    }
+  }, {
+    name: {
+      first: 'James',
+      last: 'Madison'
+    },
+    team: pd._id,
+    address: {
+      lines: ['2 15th St NW', 'PO Box 8675309'],
+      postal: '20007'
+    }
+  }, {
+    name: {
+      first: 'James',
+      last: 'Monroe'
+    },
+    team: pd._id,
+    address: {
+      lines: ['1850 West Basin Dr SW', 'Suite 210'],
+      postal: '20242'
+    }
+  }], function (error, johnadams) {
+    if (error) {
+      return callback(error);
+    } else {
+      console.info('employees successfully added sir!');
+      callback(null, {
+        team: pd,
+        employee: johnadams
+      });
+    }
+  })
 }
 
 function updateEmployee (first, last, data, callback) {
@@ -165,14 +166,36 @@ function updateEmployee (first, last, data, callback) {
 	});
 }
 
+function removeTeams () {
+	console.info("deleting all previously added teams sir!");
+	Team.remove({}, function(error, response) {
+		if(error) {
+			console.error("tried to delete all teams but " + error);
+		}
+		console.info("done deleting all teams sir!");
+	});
+}
+
+function removeEmployees () {
+	console.info("deleting all previously added employees sir!");
+	Employee.remove({}, function(error, response) {
+		if(error) {
+			console.error("tried to delete all employees but " + error);
+		}
+		console.info("done deleting all employees sir!");
+	});
+}
+
 mongoose.connect(dbUrl, function (err) {
 	if (err) {
 		return console.log('there was a problem connecting to the database sir!' + err);
 	}
 	console.log('connected to the database sir!');
-	insertTeams(function (err, pd, devops, acct) {
-		if (err) {
-			return console.log(err);
+	removeTeams();
+	removeEmployees();
+	insertTeams(function (error, pd, devops, acct) {
+		if (error) {
+			return console.log(error);
 		}
 		insertEmployees(pd, devops, acct, function (err, result){
 
