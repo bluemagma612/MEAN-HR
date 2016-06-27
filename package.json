@@ -11,6 +11,7 @@
   "dependencies": {
     "asynch": "^0.5.2",
     "colors": "^1.1.2",
+    "express": "^4.14.0",
     "mongoose": "^4.5.2",
     "mongoose-post-find": "0.0.2"
   }
