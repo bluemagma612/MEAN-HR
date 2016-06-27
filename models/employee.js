@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+
 var EmployeeSchema = new Schema({
   id: {
     type: String,
@@ -34,4 +35,5 @@ image: {
       type: Number
 } }
 });
+
 module.exports = mongoose.model('Employee', EmployeeSchema);

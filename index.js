@@ -1,8 +1,10 @@
 var http = require('http');
+var colors = require('colors');
+require('./lib/connection');
 var employeeService = require('./lib/employees');
 var responder = require('./lib/responseGenerator');
 var staticFile = responder.staticFile('/public');
-var colors = require('colors');
+
 
 //not necessary in Node (5.9.0) *bb
 // Array.prototype.find = function (predicate) {

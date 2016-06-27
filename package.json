@@ -4,12 +4,14 @@
   "description": "example app from the mean stack book",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "populate": "node ./bin/populate_db"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "asynch": "^0.5.2",
     "colors": "^1.1.2",
-    "mongoose": "^4.5.2"
+    "mongoose": "^4.5.2",
+    "mongoose-post-find": "0.0.2"
   }
 }
