@@ -48,13 +48,13 @@ db.on('error', function () {
 });
 
 function insertTeams (callback) {
-	Team.create([{
+	Team.create({
 		name: 'Product Development'
 	}, {
 		name: 'Dev Ops'
 	}, {
 		name: 'Accounting'
-	}], function (error, pd, devops, acct) {
+	}, function (error, pd, devops, acct) {
 		if (error) {
 			console.error(error);
 			return callback(error);
@@ -66,14 +66,17 @@ function insertTeams (callback) {
 }
 
 function retrieveEmployee (data, callback) {
+	console.log("retrieveEmployee data");
+	console.info(data.employee._id);
 	Employee.findOne({
-		_id: data.employee._id
+		//_id: data.employee._id
+		_id: 576ee337918812a71042c6a1
 	}).populate('team').exec(function (error, result) {
 		if (error) {
 			return callback (error);
 		} else {
 			console.log('*** Single Employee Result ***');
-			//console.dir(result);
+			console.info(result);
 			callback(null, data);
 		}
 	});
@@ -87,7 +90,7 @@ function retrieveEmployees (data, callback) {
 			return callback(error);
 		} else {
 			console.log('*** Multiple Employees Result ***');
-			//console.dir(results);
+			console.info(results);
 			callback(null, data);
 		}
 	});
@@ -99,7 +102,7 @@ function insertEmployees (pd, devops, acct, callback) {
       first: 'John',
       last: 'Adams'
     },
-    Team: devops._id,
+    team: devops._id,
     address: {
       lines: ['2 Lincoln Memorial Cir NW'],
       postal: '20037'
@@ -109,7 +112,7 @@ function insertEmployees (pd, devops, acct, callback) {
       first: 'Thomas',
       last: 'Jefferson'
     },
-    Team: pd._id,
+    team: pd._id,
     address: {
       lines: ['1600 Pennsylvania Avenue', 'White House'],
       postal: '20500'
@@ -119,7 +122,7 @@ function insertEmployees (pd, devops, acct, callback) {
       first: 'James',
       last: 'Madison'
     },
-    team: pd._id,
+    team: acct._id,
     address: {
       lines: ['2 15th St NW', 'PO Box 8675309'],
       postal: '20007'
@@ -129,7 +132,7 @@ function insertEmployees (pd, devops, acct, callback) {
       first: 'James',
       last: 'Monroe'
     },
-    team: pd._id,
+    team: acct._id,
     address: {
       lines: ['1850 West Basin Dr SW', 'Suite 210'],
       postal: '20242'
@@ -148,8 +151,8 @@ function insertEmployees (pd, devops, acct, callback) {
 }
 
 function updateEmployee (first, last, data, callback) {
-	console.log('*** Changin names ***');
-	console.dir(data.employee);
+	console.log('*** Changing name ***');
+	//console.dir(data.employee);
 
 	var employee = data.employee;
 	employee.name.first = first;
@@ -198,11 +201,12 @@ mongoose.connect(dbUrl, function (err) {
 			return console.log(error);
 		}
 		insertEmployees(pd, devops, acct, function (err, result){
-
+				console.info("results after insert employees");
+				console.info(result);
 			retrieveEmployee(result, function(err, result) {
 
 				retrieveEmployees(result, function(err, result) {
-					
+					//console.log(result);
 					updateEmployee('Andrew', 'Jackson', result, function(err, result) {
 						if (err) {
 						console.error(err);
