@@ -9,13 +9,13 @@ app.get('/teams/:teamName/employees/:employeeId', function (req, res, next) {
 });
 
 //Route two
-app.get('/teams/:teamName/employees', function(res,req,next) {
+app.get('/teams/:teamName/employees', function(req,res,next) {
 	console.log('setting content type');
 	res.set('Content-Type', 'application/json');
 	res.locals.data = 100;
 	next();
-	}, function (res, req, next) {
-	console.log('teamName = ' +req.params.teamName);
+	}, function (req, res, next) {
+	console.log('teamName = ' + req.params.teamName);
 	console.log(res.locals.data);
 	res.send('path two');
 });
