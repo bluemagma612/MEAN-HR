@@ -1,20 +1,8 @@
 var http = require('http');
-var colors = require('colors');
 require('./lib/connection');
 var employeeService = require('./lib/employees');
 var responder = require('./lib/responseGenerator');
 var staticFile = responder.staticFile('/public');
-
-
-//not necessary in Node (5.9.0) *bb
-// Array.prototype.find = function (predicate) {
-//   for (var i = 0, value; i < this.length; i++) {
-//     value = this[i];
-//     if (predicate.call(this, value))
-//       return value;
-//   }
-//   return undefined;
-// }
 
 
 http.createServer(function (req, res) {
