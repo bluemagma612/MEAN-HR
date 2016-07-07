@@ -8,36 +8,45 @@
 	<body ng-controller="main">
 		<input type="text" ng-model="firstName" placeholder="first name">
 		<input type="text" ng-model="lastName" placeholder="last name">
-		<h2>Gender {{gender}}</h2>
-		<input type="radio" ng-model="gender" value="male" ng-click="style={color:'yellow'}">Male
-		<input type="radio" ng-model="gender" value="female" ng-click="style={color:'orange'}">Female
-		<br />
-		<h2 ng-style=style>Welcome {{firstName + ' ' + lastName}}</h2>
-		<button ng-disabled="!(firstName.length && lastName.length)" ng-click="signup()">Sign Up</button>
+
+		<button ng-disabled="!(firstName.length && lastName.length)" ng-click="add()">Add</button>
+
+		<table>
+			<tr ng-repeat="p in presidents | orderBy: 'last'">
+				<td>{{p.first}}</td>
+				<td>{{p.last}}</td>
+				<td><button ng-click="$parent.remove(p)">Remove</button></td>
+			</tr>
+		</table>
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
-		
 		<script>
+			var app = angular.module('app', []);
+			app.controller('main', ['$scope', function($scope) {
+				$scope.firstName = $scope.lastName = '';
 
-		var app = angular.module('app', []);
+				$scope.presidents = [{
+					first: 'Abraham',
+					last: 'Lincon'
+				}, {
+					first: 'Andrew',
+					last: 'Johnson'
+				}, {
+					first: 'Ulysses',
+					last: 'Grant'
+				}];
 
-		app.controller('main', ['$scope', function($scope) {
-			
-			$scope.firstName = $scope.lastName = undefined;
-			
-			$scope.gender = 'female';
-			
-			$scope.style = {color:'orange'};
-			
-			$scope.signup = function () {
-				var person = {
-					first: $scope.firstName,
-					last: $scope.lastName,
-					gender: $scope.gender
+				$scope.add = function () {
+					$scope.presidents.push({
+						first: $scope.firstName,
+						last: $scope.lastName
+					});
+					$scope.firstName = $scope.lastName = '';
+				};
+
+				$scope.remove = function(president) {
+					$scope.presidents.splice($scope.presidents.indexOf(president), 1);
 				}
-				console.log(person);
-			};
-		}]);
-		
+			}]);
 		</script>
 	</body>
 </html>
