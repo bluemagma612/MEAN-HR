@@ -1,9 +1,43 @@
 <!DOCTYPE html>
+<html lang="en" ng-app="app" class="no-js" >
 	<head>
-		<meta charset="utf-8">
-		<title>BlueMagma Human Resources</title>
+		<meta charset="utf-8" >
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Bluemagma MEAN Stack HR App</title>
 	</head>
-	<body>
-		This is the home page for the bluemagma human resources website
+	<body ng-controller="main">
+		<input type="text" ng-model="firstName" placeholder="first name">
+		<input type="text" ng-model="lastName" placeholder="last name">
+		<h2>Gender {{gender}}</h2>
+		<input type="radio" ng-model="gender" value="male" ng-click="style={color:'yellow'}">Male
+		<input type="radio" ng-model="gender" value="female" ng-click="style={color:'orange'}">Female
+		<br />
+		<h2 ng-style=style>Welcome {{firstName + ' ' + lastName}}</h2>
+		<button ng-disabled="!(firstName.length && lastName.length)" ng-click="signup()">Sign Up</button>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+		
+		<script>
+
+		var app = angular.module('app', []);
+
+		app.controller('main', ['$scope', function($scope) {
+			
+			$scope.firstName = $scope.lastName = undefined;
+			
+			$scope.gender = 'female';
+			
+			$scope.style = {color:'orange'};
+			
+			$scope.signup = function () {
+				var person = {
+					first: $scope.firstName,
+					last: $scope.lastName,
+					gender: $scope.gender
+				}
+				console.log(person);
+			};
+		}]);
+		
+		</script>
 	</body>
 </html>
