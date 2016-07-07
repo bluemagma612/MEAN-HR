@@ -5,48 +5,47 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Bluemagma MEAN Stack HR App</title>
 	</head>
-	<body ng-controller="main">
-		<input type="text" ng-model="firstName" placeholder="first name">
-		<input type="text" ng-model="lastName" placeholder="last name">
-
-		<button ng-disabled="!(firstName.length && lastName.length)" ng-click="add()">Add</button>
-
-		<table>
-			<tr ng-repeat="p in presidents | orderBy: 'last'">
-				<td>{{p.first}}</td>
-				<td>{{p.last}}</td>
-				<td><button ng-click="$parent.remove(p)">Remove</button></td>
-			</tr>
-		</table>
+	<body>
+		<author-names></author-names>		
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
 		<script>
+			'use strict';
 			var app = angular.module('app', []);
-			app.controller('main', ['$scope', function($scope) {
-				$scope.firstName = $scope.lastName = '';
 
-				$scope.presidents = [{
-					first: 'Abraham',
-					last: 'Lincon'
-				}, {
-					first: 'Andrew',
-					last: 'Johnson'
-				}, {
-					first: 'Ulysses',
-					last: 'Grant'
-				}];
-
-				$scope.add = function () {
-					$scope.presidents.push({
-						first: $scope.firstName,
-						last: $scope.lastName
-					});
-					$scope.firstName = $scope.lastName = '';
+			app.directive('authorNames', function($compile) {
+				return {
+					//limit the directive to only be used as an element
+					restrict: 'E', 
+					//define the controller
+					controller: function($scope) { 
+						//populate people array with person objects
+						$scope.people = [{ 
+							firstName: 'Colin',
+							lastName: 'Ihrig'
+						},
+						{
+							firstName: 'Adam',
+							lastName: 'Bretz'
+						}
+						];
+					},
+					//register DOM listeners
+					link: function(scope,element,attrs,controller,transclude) { 
+						//define html template to be used within element
+						// 
+						var template = scope.people.map(function(person) {
+							var str = '<div>' + person.firstName +
+										' ' + person.lastName + '</div>';
+										return str;
+						}).join('');
+						//compile the template, output html
+						var newElement = $compile(template)(scope);
+						//argument of the link function, fill the custom directive with the 
+						//html
+						element.replaceWith(newElement);
+					}
 				};
-
-				$scope.remove = function(president) {
-					$scope.presidents.splice($scope.presidents.indexOf(president), 1);
-				}
-			}]);
+			});
 		</script>
 	</body>
 </html>
