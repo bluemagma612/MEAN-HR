@@ -43,7 +43,7 @@ if (app.get('env') === 'development') {
   });
 }
 
-//prod err handler no stack trace
+// //prod err handler no stack trace
 app.use(function(err,req,res,next) {
   res.status(err.status || 500);
 });

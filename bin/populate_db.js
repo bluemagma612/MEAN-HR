@@ -6,7 +6,7 @@ var Team = mongoose.model('Team');
 var data = {
 	employees: [
 	{
-		id: '1000003',
+		empId: '1000003',
 		name: {
 			first: 'Colin',
 			last: 'Ihrig'
@@ -20,7 +20,7 @@ var data = {
 			}
 		},
 		{
-		id: '1000021',
+		empId: '1000021',
 		name: {
 			first: 'Adam',
 			last: 'Bretz'
@@ -33,7 +33,7 @@ var data = {
 			}
 		},
 		{
-		id: '1000022',
+		empId: '1000022',
 		name: {
 			first: 'Matt',
 			last: 'Liegey'
@@ -46,11 +46,11 @@ var data = {
 			}
 		},
 		{
-		id: '1000025',
+		empId: '1000025',
 		name: {
 			first: 'Aleksey',
 			last: 'Smolenchuk'
-		},image: 'images/employees/1000025.png' /* invalid image */,
+		},image: 'images/employees/1000025.png',
 		address: {
 			lines: ['3803 Forbes Ave'],
 			city: 'Pittsburgh',
@@ -59,7 +59,7 @@ var data = {
 			}
 		},
 		{
-		id: '1000030',
+		empId: '1000030',
 		name: {
 			first: 'Sarah',
 			last: 'Gay'
@@ -72,7 +72,7 @@ var data = {
 			}
 		},
 		{
-		id: '1000031',
+		empId: '1000031',
 		name: {
 			first: 'Dave',
 			last: 'Beshero'
