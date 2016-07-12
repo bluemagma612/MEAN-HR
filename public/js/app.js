@@ -171,6 +171,8 @@ app.controller('EmployeeCtrl', ['$scope', '$routeParams', 'EmployeeService', 'Te
 
 			$scope.employee.address.lines = lines;
 
+			$scope.employee.team_id = $scope.employee.team._id;
+
 			// call the employee service using http put
 			// providing an id and changed and 
 			// unchanged values in the scope.employee object
