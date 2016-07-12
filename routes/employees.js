@@ -78,7 +78,7 @@ router.put('/employees/:employeeId', function(req,res, next) {
 		if (err) {
 			return next(err);
 		}
-		res.send(200);
+		res.sendStatus(200);
 	});
 });
 

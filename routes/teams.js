@@ -29,8 +29,6 @@ router.get('/teams/:teamId', function(req,res,next) {
 		}
 
 		//respond with valid json data
-		console.log("router results");
-		console.log(results);
 		res.json(results);
 	});
 });
