@@ -4,7 +4,7 @@ var Employee = mongoose.model('Employee');
 var Team = mongoose.model('Team');
 var router = express.Router();
 
-router.get('/employees', function(req,res) {
+router.get('/employees', function(req,res, next) {
 	Employee.find().sort('name.last').exec(function(err, results) {
 		if (err) {
 			return next(err);
@@ -15,7 +15,7 @@ router.get('/employees', function(req,res) {
 	});
 });
 
-router.get('/employees/:employeeId', function(req,res) {
+router.get('/employees/:employeeId', function(req,res, next) {
 	console.log("employeeId:" + req.params.employeeId);
 	Employee.findOne({
 		empId: req.params.employeeId
@@ -34,7 +34,7 @@ router.get('/employees/:employeeId', function(req,res) {
 	});
 });
 
-router.delete('/employees/:employeeId', function(req,res) {
+router.delete('/employees/:employeeId', function(req,res, next) {
 	Employee.remove({ empId: req.params.employeeId }).exec(function(err,results) {
 		if (err) {
 			return next(err);
@@ -66,7 +66,7 @@ router.post('/employees', function(req,res,next) {
 	});
 });
 
-router.put('/employees/:employeeId', function(req,res) {
+router.put('/employees/:employeeId', function(req,res, next) {
 	//remove this or mongoose will throw an error
 	//because we would be trying to update the mongoid
 	delete req.body._id;
