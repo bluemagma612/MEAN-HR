@@ -127,11 +127,15 @@ var deleteTeams = function(callback) {
 
 var addTeams = function(callback) {
 	console.info('Adding teams');
-	Team.create(data.teams, function (error, team1) {
+	Team.create(data.teams, function (error, team) {
 	if (error) {
 		console.error('Error: ' + error);
 	} else {
-		data.team_id = team1._id;
+		//console.log("team "+team[0]._id);
+		//in the text and doesnt work!
+		//data.team_id = team1._id;
+		data.team_id = team[0]._id;
+		
 	}
 		console.info('Done adding teams');
 		callback();
@@ -141,9 +145,10 @@ var addTeams = function(callback) {
 var updateEmployeeTeams = function (callback) {
 	console.info('Updating employee teams');
 	var team = data.teams[0];
+	//console.log("team id " + team_id + " team name " +team.name);
 	// Set everyone to be on the same team to start
 	Employee.update({}, {
-	team: data.team_id
+	team_id: data.team_id
 	}, {
 	multi: true
 	}, function (error, numberAffected, response) {

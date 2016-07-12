@@ -1,88 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="app" >
-	<head>
-		<meta charset="utf-8" >
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Bluemagma MEAN Stack HR App : Employees</title>
-	</head>
-	<body>
-		<div ng-controller="main">
-			<input type="text" ng-model="empId" placeholder="empId">
-			<input type="text" ng-model="firstName" placeholder="first name">
-			<input type="text" ng-model="lastName" placeholder="last name">
-			<button ng-disabled="!(firstName.length && lastName.length)" ng-click="add()">Add</button>
-			<table>
-				<tr ng-repeat="p in employees | orderBy: 'empId'">
-					<td>{{p.empId}}</td>
-					<td><span>{{p.name.first}} {{p.name.last}}</span></td>
-					<td><button ng-click="$parent.remove(p)">Remove</button></td>
-				</tr>
-			</table>
-		</div>
-		<div ng-controller="logger">
-			<pre>
-				<p ng-repeat="e in events track by $index">{{$index}} - {{e}}</p>
-			</pre>
-		</div>
-		<script src="/scripts/angularjs/1.2.16/angular.min.js"></script>
-		<script src="/scripts/angularjs/1.2.16/angular-resource.min.js"></script>
-		<script src="/scripts/angularjs/1.2.16/angular-route.min.js"></script>
-		<script>
-				var app = angular.module('app', ['ngResource']);
-
-				app.factory('EmployeeService', ['$resource', function($resource){
-					return $resource('/employees/:employeeId', {}, {
-						get: {
-							isArray: true
-						},
-						delete: {
-							isArray: true,
-							method: 'DELETE'
-						},
-						post: {
-							method: 'POST'
-						}	
-					});
-				}]);
-
-				app.controller('main', ['$scope', 'EmployeeService', '$rootScope', function($scope,EmployeeService,$rootScope) {
-					$scope.employees = [];
-					$scope.firstName = $scope.lastName = '';
-
-					EmployeeService.get(function(data) {
-						$scope.employees = data;
-						$rootScope.$emit('log', 'GET /employees success');
-					});
-
-					$scope.add = function() {
-						EmployeeService.post({
-							empId: $scope.empId,
-							firstName: $scope.firstName,
-							lastName: $scope.lastName
-						}, function(data) {
-							$scope.employees.push(data);
-							$rootScope.$emit('log', 'POST /employees success');
-						});
-					};
-
-					$scope.remove = function(employee) {
-						EmployeeService.delete({
-							employeeId: employee.empId
-						}, function(data) {
-							$scope.employees = data;
-							$rootScope.$emit('log', 'DELETE /employees success');
-						});
-					}
-				}]);
-
-				app.controller('logger', ['$scope','$rootScope', function($scope, $rootScope) {
-					$scope.events = [];
-					
-					$rootScope.$on('log', function(event,data) {
-						console.log(data);
-						$scope.events.push(data.trim());
-					});
-				}]);
-		</script>
-	</body>
-</html>
+<div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="employee in employees">
+	<div class="panel panel-default employee-list-item">
+	<div class="panel-body">
+		<span class="icon-container"><i class="fa fa-3x fa-user"></i></span>
+		<span class="h4">{{employee.name.last}}, {{employee.name.first}}</span>
+		<a href="#/employees/{{employee.empId}}" class="btn btn-sm btn-info">
+			<i class="fa fa-eye"></i> View
+		</a>
+	</div>
+</div>

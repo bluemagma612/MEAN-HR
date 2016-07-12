@@ -1,0 +1,60 @@
+body {
+	background: url('/images/background.png');
+	background-repeat: repeat-x;
+	min-width: 320px;
+}
+ul.nav.nav-pills {
+	margin: 10px 0;
+	background-color: #fff;
+}
+.employee-list-item .panel-body {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: box;
+	display: flex;
+}
+.employee-list-item .panel-body > * {
+	-webkit-align-self: center;
+	align-self: center;
+	-ms-flex-item-align: center;
+}
+.employee-list-item .panel-body .btn {
+	margin-left: auto;
+}
+.employee-avatar {
+	height: 200px;
+	width: 200px;
+	border-radius: 6px;
+}
+span.icon-container {
+	display: inline-block;
+	text-align: center;
+	width: 48px;
+	height: 48px;
+	border: 1px solid #3498db;
+	margin-right: 15px;
+	border-radius: 4px;
+}
+div.button-bar {
+	text-align: left;
+	margin-bottom: 10px;
+}
+div.form-offset {
+	padding-top: 15px;
+}
+.margin-top-reset {
+	margin-top: 0;
+}
+ul.address-lines {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+ul.address-lines div.address-edit, .margin-bottom-space {
+	margin-bottom: 5px;
+}
+ul.address-lines .in-line-input {
+	margin-bottom: 5px;
+}

@@ -1,0 +1,68 @@
+<ul class="breadcrumb">
+	<li><a href="#employees">Employees</a></li>
+	<li class="active">{{employee.name.last}}, {{employee.name.first}}</li>
+</ul>
+<div class="panel panel-default clearfix">
+	<div class="panel-body">
+		<div class="button-bar">
+			<button class="btn btn-warning" ng-click="edit()" ng-hide="editing">Edit</button>
+			<button class="btn btn-success" ng-click="save()" ng-show="editing">Save</button>
+			<button class="btn btn-danger" ng-click="cancel()" ng-show="editing">Cancel</button>
+		</div>
+		<div class="col-xs-12 col-md-4 text-center">
+			<h3 class="margin-top-reset">{{employee.name.last}}, {{employee.name.first}}</h3>
+			<img ng-src="{{employee.image}}" image-fallback="images/user.png" class="employee-avatar">
+		</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 form-offset">
+				<div class="form-group">
+					<label class="control-label">Employee ID</label>
+					<div>#{{employee.empId}}</div>
+				</div>
+				<div class="form-group">
+				<label class="control-label">First Name:</label>
+					<edit-in-line value="employee.name.first"editing="editing" />
+				</div>
+				<div class="form-group">
+					<label>Last Name:</label>
+					<edit-in-line value="employee.name.last"editing="editing" />
+				</div>
+				<div class="form-group">
+					<label>Team:</label>
+					<edit-in-line value="employee.team" editing="editing" edit-list="teams" edit-option="t.name for t in teams"	edit-type="select" display-value="employee.team.name" />
+				</div>
+			</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 form-offset">
+					<div class="form-group">
+						<label class="control-label">Address</label>
+						<ul class="address-lines">
+						<li ng-repeat="line in employee.address.lines track by $index">
+						<span ng-hide="editing">{{line}}</span>
+					<div ng-show="editing" class="input-group address-edit">
+						<input type="text" class="form-control"	ng-model="employee.address.lines[$index]" />
+						<span class="input-group-btn">
+							<button ng-click="address.addLine($index)"class="btn btn-success">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button ng-click="address.removeLine($index)" ng-disabled="employee.address.lines.length === 1" class="btn btn-danger">
+							<i class="fa fa-trash-o"></i>
+							</button>
+						</span>
+					</div>
+				</li>
+				<li>
+					<edit-in-line value="employee.address.city"	editing="editing" />
+				</li>
+				<li>
+					<span ng-hide="editing">{{employee.address.state}},	{{employee.address.zip}}</span>
+				</li>
+				<li ng-show="editing">
+					<edit-in-line ng-show="editing" edit-type="select" value="employee.address.state" editing="editing" edit-list="states" edit-option='s for s in states' />
+				</li>
+				<li ng-show="editing">
+					<edit-in-line value="employee.address.zip" editing="editing" edit-type="number" />
+				</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

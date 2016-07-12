@@ -17,18 +17,20 @@ router.get('/teams', function(req,res,next) {
 
 router.get('/teams/:teamId', function(req,res,next) {
 	Team.findOne({
-		id: req.params.teamId
+		_id: req.params.teamId
 	}).populate('team').exec(function (error, results) {
 		if (error) {
 			return next(error);
 		}
 
-		//if no user found return 404
+		//if no team found return 404
 		if (!results) {
 			res.send(404);
 		}
 
 		//respond with valid json data
+		console.log("router results");
+		console.log(results);
 		res.json(results);
 	});
 });

@@ -14,9 +14,9 @@ var EmployeeSchema = new Schema({
       type: String,
       required: true
     }
-}, team: {
+}, team_id: {
     type: Schema.Types.ObjectId,
-    ref: 'Team'
+    ref: 'Team_id'
   },
 image: {
     type: String,
