@@ -4,4 +4,4 @@ app.config(['$routeProvider', function($routeProvider) {
 }]);
 app.factory('EmployeeService', ['$resource', function($resource) {
 // See Listing 19-3 for complete code
-}]);
+}]); 
