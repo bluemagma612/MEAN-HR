@@ -1,5 +1,6 @@
 resources/mean-hr.pem
 node_modules/*
+assets/*
 # Compiled source #
 ###################
 *.com

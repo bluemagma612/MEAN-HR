@@ -22,16 +22,15 @@ gulp.task('css', function() {
 
 gulp.task('javascript', function() {
 	gulp.src([
-		jsSource + 'mainapp.js', 
-		jsSource + 'edit_controller'.
-		jsSource + 'view_controller'])
-	.pipe(concat('main.js'))
+		jsSource + 'app.js'
+		])
+	.pipe(concat('app.js'))
 	.pipe(wrap('(function(a, window){<%=contents %>}(angular, window));'))
 	.pipe(jshint({
 		predef: ['window', 'angular']
 		}))
 	.pipe(jshint.reporter('default'))
-	.pipe(gulp.dest('./public/js'))
+	//.pipe(gulp.dest('./public/js'))
 	.pipe(rename({
 			suffix: '.min'
 			}))
@@ -42,6 +41,7 @@ gulp.task('javascript', function() {
 gulp.task('watch', function() {
 	gulp.watch('./assets/javascript/*.js', ['javascript']);
 	gulp.watch('./assets/style/*.styl', ['css']);
+	gulp.watch('./gulpfile.js', ['default']); 
 	});
 
 gulp.task('default', function() {
