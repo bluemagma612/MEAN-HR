@@ -1,6 +1,5 @@
 resources/*
 node_modules/*
-assets/*
 # Compiled source #
 ###################
 *.com
