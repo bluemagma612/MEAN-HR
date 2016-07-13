@@ -1,4 +1,4 @@
-resources/mean-hr.pem
+resources/*
 node_modules/*
 assets/*
 # Compiled source #
