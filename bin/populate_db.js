@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 require(process.cwd() + '/lib/connection');
 var Employee = mongoose.model('Employee');
 var Team = mongoose.model('Team');
+var User = mongoose.model('User');
+
 var data = {
 	employees: [
 	{
@@ -84,12 +86,21 @@ var data = {
 			zip: 15228
 			}
 		}
-	], teams: [
+	],
+	teams: [
 	{
 		name: 'Software and Services Group'
 	},
 	{
 		name: 'Project Development'
+	}
+	],
+	users: [
+	{
+		username: 'bluemagma',
+		password: 'bryc3b',
+		name: 'Bryce',
+		admin: true
 	}
 	]
 };
@@ -108,7 +119,7 @@ var addEmployees = function(callback) {
 	console.info('Adding employees');
 	Employee.create(data.employees, function (error) {
 	if (error) {
-		console.error('Error: ' + error);
+		console.error('Error adding employees: ' + error);
 	}
 		console.info('Done adding employees');
 		callback();
@@ -124,7 +135,6 @@ var deleteTeams = function(callback) {
 		callback();
 	});
 };
-
 var addTeams = function(callback) {
 	console.info('Adding teams');
 	Team.create(data.teams, function (error, team) {
@@ -141,8 +151,7 @@ var addTeams = function(callback) {
 		callback();
 	});
 };
-
-var updateEmployeeTeams = function (callback) {
+var updateEmployeeTeams = function(callback) {
 	console.info('Updating employee teams');
 	var team = data.teams[0];
 	//console.log("team id " + team_id + " team name " +team.name);
@@ -159,12 +168,23 @@ var updateEmployeeTeams = function (callback) {
 		callback();
 	});
 };
+var addUsers = function(callback) {
+	console.info('adding users');
+	User.create(data.users, function(error) {
+		if (error) {
+			console.error('Error adding users: ' + error);
+		}
+		console.info('Done adding users');
+		callback();
+	});
+};
 
 async.series([
 	deleteEmployees,
 	deleteTeams,
 	addEmployees,
 	addTeams,
+	addUsers,
 	updateEmployeeTeams
 ], function(error, results) {
 	if (error) {

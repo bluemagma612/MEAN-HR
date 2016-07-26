@@ -1,0 +1,19 @@
+<ul class="breadcrumb">
+    <li><a href="#teams">Users</a></li>
+    <li class="active">{{user.name}}</li>
+</ul>
+<div>
+<h3>{{user.name}}</h3>
+</div>
+<div>
+<h4>Users</h4>
+</div>
+<div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="User in users">
+    <div class="panel panel-default employee-list-item">
+    <div class="panel-body">
+    <span class="icon-container"><i class="fa fa-3x fa-user"></i></span>
+    <span class="h4">{{user.name.last}}, {{employee.name.first}}</span>
+<a href="#users/{{users._id}}" class="btn btn-sm btn-info">
+    <i class="fa fa-eye"></i> View</a>
+    </div>
+    </div>
