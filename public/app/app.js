@@ -11,7 +11,7 @@ var app = angular.module('app', [
     'employeeService',
     'employeeCtrl',
     'teamService',
-    'teamCtrl',
+    'teamCtrl'
 ])
     .constant('config', {
         states: ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI',

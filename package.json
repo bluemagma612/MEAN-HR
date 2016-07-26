@@ -4,7 +4,7 @@
   "description": "example app from the mean stack book",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "nodemon server",
     "populate": "node ./bin/populate_db"
   },
   "author": "Bryce Blilie",

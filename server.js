@@ -33,16 +33,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var authRoutes = require('./app/routes/authenticate')(app, express);
-app.use(authRoutes);
+app.use('/api', authRoutes);
 
 var usersRoutes = require('./app/routes/users')(app, express);
-app.use(usersRoutes);
+app.use('/api',usersRoutes);
 
 var employeesRoutes = require('./app/routes/employees')(app, express);
-app.use(employeesRoutes);
+app.use('/api',employeesRoutes);
 
 var teamsRoutes = require('./app/routes/teams')(app, express);
-app.use(teamsRoutes);
+app.use('/api',teamsRoutes);
+
+// basic route for the home page
+app.get('*', function(req,res) {
+    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+});
 
 //catch 404 and forward to error handler
 app.use(function(req,res,next) {
