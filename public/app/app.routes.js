@@ -1,43 +1,78 @@
 /**
  * Created by Bluemagma on 7/25/16.
  */
-angular.module('app.routes', ['ngRoute'])
+angular.module('app.routes', [
+    'ngRoute', 
+    'employeeCtrl', 
+    'teamCtrl',
+    'userCtrl',
+    'loginCtrl'
+    ])
 
-    .config(['$routeProvider', function($routeProvider) {
+    .config(function($routeProvider, $locationProvider) {
 
     $routeProvider
-        .when('/', {
-            templateUrl: 'home.html',
-        })
+        // home page route
+        
         .when('/employees', {
-            templateUrl: 'employees.html',
-            controller: 'employeeCtrl'
+            templateUrl: '/app/views/pages/employees/employees.html',
+            controller: 'employeeController',
+            controllerAs: 'employee'
         })
-        .when('/employees/:employeeId', {
-            templateUrl: 'employee.html',
-            controller: 'employeeCtrl'
+        .when('/employees/:employee_id', {
+            templateUrl: '/app/views/pages/employees/employee.html',
+            controller: 'employeeEditController',
+            controllerAs: 'employee'
         })
         .when('/teams', {
-            templateUrl: 'teams.html',
-            controller: 'teamCtrl'
+            templateUrl: '/app/views/pages/teams/teams.html',
+            controller: 'teamController',
+            controllerAs: 'team'
         })
-        .when('/teams/:teamId', {
-            templateUrl: 'team.html',
-            controller: 'teamCtrl'
+        .when('/teams/:team_id', {
+            templateUrl: '/app/views/pages/teams/team.html',
+            controller: 'teamEditController',
+            controllerAs: 'team'
         })
-        .when('/users', {
-            templateUrl: 'users.html',
-            controller: 'userCtrl'
-        })
-        .when('/users/:userId', {
-            templateUrl: 'user.html',
-            controller: 'userCtrl'
-        })
+
+        // login page
         .when('/login', {
-            templateUrl: 'login.html',
-            controller: 'loginCtrl'
+            templateUrl: '/app/views/pages/login.html',
+            controller: 'loginController',
+            controllerAs: 'login'
         })
+
+        // show all users
+        .when('/users', {
+            templateUrl: '/app/views/pages/users/users.html',
+            controller: 'userController',
+            controllerAs: 'user'
+        })
+
+        // form to create a new user
+        // same view as edit page
+        .when('/users/create', {
+            templateUrl: '/app/views/pages/users/user.html',
+            controller: 'userCreateController',
+            controllerAs: 'user'
+        })
+
+        // page to edit a user
+        .when('/users/:user_id', {
+            templateUrl: '/app/views/pages/users/user.html',
+            controller: 'userEditController',
+            controllerAs: 'user'
+        })
+
+        .when('/', {
+            templateUrl: '/app/views/pages/home.html'
+        })
+
         .otherwise({
-            redirectTo: '/'
+            redirectTo: 'app/views/pages/notfound.html'
         });
-}]);
+
+
+        // get rid of the hash in the URL
+        $locationProvider.html5Mode(true);
+});

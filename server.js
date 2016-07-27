@@ -30,7 +30,7 @@ app.use(cookieParser());
 
 // set static files location
 // userd for requests
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/public'));
 
 var authRoutes = require('./app/routes/authenticate')(app, express);
 app.use('/api', authRoutes);

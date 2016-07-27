@@ -1,7 +1,7 @@
 /**
  * Created by Bluemagma on 7/25/16.
  */
-angular.module('TeamService', [])
+angular.module('teamService', [])
     .factory('Team', function($http) {
         // create a new object
         var teamFactory = {};
@@ -32,5 +32,5 @@ angular.module('TeamService', [])
         };
 
         // return our entire teamFactory object
-        return userFactory;
+        return teamFactory;
 });

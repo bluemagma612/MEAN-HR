@@ -1,17 +1,9 @@
-/**
- * Created by Bluemagma on 7/25/16.
- */
+
 var app = angular.module('app', [
-    'ngRoute',
     'ngResource',
+    'ngRoute',
     'app.routes',
-    'authService',
-    'userService',
-    'userCtrl',
-    'employeeService',
-    'employeeCtrl',
-    'teamService',
-    'teamCtrl'
+    'authService'
 ])
     .constant('config', {
         states: ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI',

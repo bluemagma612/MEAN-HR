@@ -1,6 +1,6 @@
 <ul class="breadcrumb">
-	<li><a href="#employees">Employees</a></li>
-	<li class="active">{{employee.name.last}}, {{employee.name.first}}</li>
+	<li><a href="employees">Employees</a></li>
+	<li class="active">{{employeeData.name.last}}, {{employeeData.name.first}}</li>
 </ul>
 <div class="panel panel-default clearfix">
 	<div class="panel-body">
@@ -16,15 +16,15 @@
 			<div class="col-xs-12 col-sm-6 col-md-4 form-offset">
 				<div class="form-group">
 					<label class="control-label">Employee ID</label>
-					<div>#{{employee.empId}}</div>
+					<div>#{{employeeData.empId}}</div>
 				</div>
 				<div class="form-group">
 				<label class="control-label">First Name:</label>
-					<edit-in-line value="employee.name.first"editing="editing" />
+					<edit-in-line value="employeeData.name.first"editing="editing" />
 				</div>
 				<div class="form-group">
 					<label>Last Name:</label>
-					<edit-in-line value="employee.name.last"editing="editing" />
+					<edit-in-line value="employeeData.name.last"editing="editing" />
 				</div>
 				<div class="form-group">
 					<label>Team:</label>

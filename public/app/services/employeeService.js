@@ -1,4 +1,4 @@
-angular.module('EmployeeService', [])
+angular.module('employeeService', [])
 
     .factory('Employee', function($http) {
         // create a new object

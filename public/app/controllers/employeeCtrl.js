@@ -1,7 +1,7 @@
 /**
  * Created by Bluemagma on 7/25/16.
  */
-angular.module('employeeCtrl', ['EmployeeService', 'TeamService', 'config'])
+angular.module('employeeCtrl', ['employeeService', 'teamService'])
 
     .controller('employeeController', function(Employee) {
 
@@ -65,7 +65,7 @@ angular.module('employeeCtrl', ['EmployeeService', 'TeamService', 'config'])
         };
     })
 
-    .controller('employeeEditController', function($routeParams, $q, $route, Employee, Team, config) {
+    .controller('employeeEditController', function($routeParams, $q, $route, Employee, Team) {
         var vm = this;
 
         // variable to hide/show elements of the view
@@ -78,20 +78,19 @@ angular.module('employeeCtrl', ['EmployeeService', 'TeamService', 'config'])
             for (var i = 0, l = teams.length; i < l; ++i) {
                 var t = teams[i];
                 if (t._id === teamId) {
-                    return t;
+                    return t; 
                 }
             }
         }
 
         $q.all([
-            Employee.get({
-                employeeId: $routeParams.employeeId
-            }).$promise,
-            Team.query().$promise
+            Employee.get($routeParams.employee_id).$promise,
+            Team.all().$promise
         ]).then(function(values) {
-            $scope.teams = values[1];
-            $scope.employee = values[0];
-            $scope.employee.team = getTeam($scope.teams, $scope.employee.team_id);
+            vm.teams = values[1];
+            vm.employeeData = values[0];
+            console.log("employeeData.team_id: " + vm.employeeData.team_id);
+            vm.employee.team = getTeam(vm.teams, vm.employeeData.team_id);
         }).catch(_handleError);
 
         // get the employee data for the employee you want to edit
@@ -101,6 +100,9 @@ angular.module('employeeCtrl', ['EmployeeService', 'TeamService', 'config'])
             .success(function(data) {
                 vm.employeeData = data;
             });
+
+        //to prevent multiple references to the same array, give us a new copy of it
+        //vm.states = config.states.slice(0);
 
         // function to save the employee
         vm.saveEmployee = function() {
@@ -136,98 +138,16 @@ angular.module('employeeCtrl', ['EmployeeService', 'TeamService', 'config'])
         }
 
         // user is adding a line to the address
-        vm.address.addLine = function (index) {
+        vm.addLine = function (index) {
             var lines = vm.employee.address.lines;
 
             lines.splice(index + 1,0,'');
         }
 
         // user is removing a line from the address
-        vm.address.removeLine = function (index) {
+        vm.removeLine = function (index) {
             var lines = vm.employee.address.lines;
 
             lines.splice(index, 1);
         }
     });
-
-
-
-// app.controller('employeeCtrl', ['$scope', 'EmployeeService',
-//     function($scope, EmployeeService) {
-//         EmployeeService.query(function(data, headers) {
-//             $scope.employees = data;
-//         }, _handleError);
-//     }]);
-
-// app.controller('EmployeeCtrl', ['$scope', '$routeParams', 'EmployeeService', 'TeamService', '$q',
-//     'config', '$route',  function($scope, $routeParams, EmployeeService, TeamService, $q, config, $route){
-//         $scope.address = {};
-//
-//         function getTeam(teams, teamId) {
-//             for (var i = 0, l = teams.length; i < l; ++i) {
-//                 var t = teams[i];
-//                 if (t._id === teamId) {
-//                     return t;
-//                 }
-//             }
-//         }
-//
-//         $q.all([
-//             EmployeeService.get({
-//                 employeeId: $routeParams.employeeId
-//             }).$promise,
-//             TeamService.query().$promise
-//         ]).then(function(values) {
-//             $scope.teams = values[1];
-//             $scope.employee = values[0];
-//             $scope.employee.team = getTeam($scope.teams, $scope.employee.team_id);
-//         }).catch(_handleError);
-//
-//         $scope.editing = false;
-//
-//         //to prevent multiple references to the same array, give us a new copy of it
-//         $scope.states = config.states.slice(0);
-//
-//         $scope.edit = function() {
-//             $scope.editing = !$scope.editing;
-//         };
-//
-//         $scope.save = function() {
-//             //to prevent empty lines in the db and keep the UI clean remove blank lines
-//             var lines = $scope.employee.address.lines;
-//
-//             if (lines.length) {
-//                 lines = lines.filter(function(value) {
-//                     return value;
-//                 });
-//             }
-//
-//             $scope.employee.address.lines = lines;
-//
-//             $scope.employee.team_id = $scope.employee.team._id;
-//
-//             // call the employee service using http put
-//             // providing an id and changed and
-//             // unchanged values in the scope.employee object
-//             EmployeeService.update({
-//                 employeeId: $routeParams.employeeId
-//             }, $scope.employee, function() {
-//                 $scope.editing = !$scope.editing;
-//             });
-//         };
-//
-//         $scope.cancel = function() {
-//             $route.reload();
-//         }
-//
-//         $scope.address.addLine = function (index) {
-//             var lines = $scope.employee.address.lines;
-//
-//             lines.splice(index + 1,0,'');
-//         }
-//
-//         $scope.address.removeLine = function (index) {
-//             var lines = $scope.employee.address.lines;
-//
-//             lines.splice(index, 1);
-//         }

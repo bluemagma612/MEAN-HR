@@ -62,7 +62,7 @@ module.exports = function(app, express) {
 	// middleware to use for all requests
 	apiRouter.use(function(req,res,next){
 		// do logging
-		console.log('Somebody just came to our app');
+		console.info('Somebody just came to our API!');
 
 		// check header or url parameters or post parameters for token
 		var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -80,7 +80,7 @@ module.exports = function(app, express) {
 				} else {
 					// if everythign is good, save the request for use in other routes
 					req.decoded = decoded;
-
+					console.log("Access Token Verified");
 					next();
 				}
 	 		});

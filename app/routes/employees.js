@@ -30,7 +30,7 @@ module.exports = function(app, express) {
 
 			//if no user found return 404
 			if (!results) {
-				res.send(404);
+				res.sendStatus(404);
 			}
 
 			//respond with valid json data
