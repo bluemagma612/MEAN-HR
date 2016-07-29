@@ -3,13 +3,26 @@
 	<span class="glyphicon glyphicon-repeat spinner"></span>
 	<p>Loading Employees...</p>
 </div>
+
+<div class="page-header">
+    <h1>
+        All Employees
+        <a href="/employees/create" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus"></span>
+        Add
+        </a>
+    </h1>
+</div>
+
 <div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="person in employee.employees">
 	<div class="panel panel-default employee-list-item">
-	<div class="panel-body">
-		<span class="icon-container"><i class="fa fa-3x fa-user"></i></span>
-		<span class="h4">{{person.name.last}}, {{person.name.first}}</span>
-		<a ng-href="/employees/{{ person.empId }}" class="btn btn-sm btn-info">
-			<i class="fa fa-eye"></i> View
-		</a>
+		
+		<div class="panel-body">
+			<span class="icon-container"><i class="fa fa-3x fa-user"></i></span>
+			<span class="h4">{{person.name.last}}, {{person.name.first}}</span>
+			<a ng-href="/employees/{{ person.empId }}" class="btn btn-sm btn-info">
+				<i class="fa fa-eye"></i> View
+			</a>
+		</div>
 	</div>
 </div>

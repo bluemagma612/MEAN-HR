@@ -12,18 +12,22 @@ angular.module('app.routes', [
     .config(function($routeProvider, $locationProvider) {
 
     $routeProvider
-        // home page route
         
         .when('/employees', {
             templateUrl: '/app/views/pages/employees/employees.html',
             controller: 'employeeController',
+            controllerAs: 'employee'
+        }) 
+        .when('/employees/create', {
+            templateUrl: '/app/views/pages/employees/create.html',
+            controller: 'employeeCreateController',
             controllerAs: 'employee'
         })
         .when('/employees/:employee_id', {
             templateUrl: '/app/views/pages/employees/employee.html',
             controller: 'employeeEditController',
             controllerAs: 'employee'
-        })
+        })         
         .when('/teams', {
             templateUrl: '/app/views/pages/teams/teams.html',
             controller: 'teamController',
@@ -69,7 +73,7 @@ angular.module('app.routes', [
         })
 
         .otherwise({
-            redirectTo: 'app/views/pages/notfound.html'
+            redirectTo: '/app/views/pages/notfound.html'
         });
 
 

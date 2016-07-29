@@ -17,23 +17,7 @@ angular.module('teamCtrl', ['teamService'])
                 // bind the teams that come back to vm.teams
                 vm.teams = data;
 
-            });
-
-        // delete a team
-        vm.deleteTeam = function(id) {
-            vm.processing = true;
-
-            // accepts the team id as a param
-            Team.delete(id)
-                .success(function(data) {
-                    // get all teams to update the table
-                    Team.all()
-                        .success(function(data) {
-                            vm.processing = false;
-                            vm.users = data;
-                        });
-                });
-        };
+            });        
     })
 
     .controller('teamCreateController', function(Team) {
@@ -76,10 +60,12 @@ angular.module('teamCtrl', ['teamService'])
 
         Team.get($routeParams.team_id)
             .success(function(data) {
-                vm.userData = data;
+                vm.teamData = data;
             });
 
-        // function to save the user
+
+
+        // function to save the team
         vm.saveTeam = function() {
             vm.processing = true;
             vm.message = '';
@@ -94,6 +80,23 @@ angular.module('teamCtrl', ['teamService'])
                     vm.message = data.message;
                 });
         };
+
+        // delete a team
+        vm.deleteTeam = function(id) {
+            vm.processing = true;
+
+            // accepts the team id as a param
+            Team.delete(id)
+                .success(function(data) {
+                    // get all teams to update the table
+                    Team.all()
+                        .success(function(data) {
+                            vm.processing = false;
+                            vm.users = data;
+                        });
+                });
+        };
+
     });
 
 

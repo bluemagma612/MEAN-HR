@@ -39,18 +39,12 @@ module.exports = function(app, express) {
 	});
 
 	employeesRouter.delete('/employees/:employeeId', function(req,res, next) {
-		Employee.remove({ empId: req.params.employeeId }).exec(function(err,results) {
+		Employee.remove({ _id: req.params.employeeId }).exec(function(err,results) {
 			if (err) {
 				return next(err);
-			} else {
-				Employee.find().sort('name.last').exec(function(err, results) {
-				if (err) {
-					return next(err);
-				}
-
-				//Respond with remaining employees
-				res.json(results);
-				});
+			} 
+			else {
+				res.sendStatus(200);
 			};
 		});
 	});
@@ -74,7 +68,7 @@ module.exports = function(app, express) {
 		//remove this or mongoose will throw an error
 		//because we would be trying to update the mongoid
 		delete req.body._id;
-		req.body.team = req.body.team._id
+		req.body.team = req.body.team_id
 
 		Employee.update({
 			empId: req.params.employeeId

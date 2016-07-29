@@ -1,7 +1,9 @@
 /**
  * Created by Bluemagma on 7/25/16.
  */
-app.directive('editInLine', function($compile) {
+angular.module('editInLineDir', [])
+
+.directive('editInLine', function($compile) {
     var exports = {};
 
     function link (scope, element, attrs) {

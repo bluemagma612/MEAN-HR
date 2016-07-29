@@ -1,68 +1,86 @@
 <ul class="breadcrumb">
-	<li><a href="employees">Employees</a></li>
-	<li class="active">{{employeeData.name.last}}, {{employeeData.name.first}}</li>
+	<li><a href="/employees">Employees</a></li>
+	<li class="active">{{employee.employeeData.name.last}}, {{employee.employeeData.name.first}}</li>
 </ul>
 <div class="panel panel-default clearfix">
 	<div class="panel-body">
 		<div class="button-bar">
-			<button class="btn btn-warning" ng-click="edit()" ng-hide="editing">Edit</button>
-			<button class="btn btn-success" ng-click="save()" ng-show="editing">Save</button>
-			<button class="btn btn-danger" ng-click="cancel()" ng-show="editing">Cancel</button>
+			<button class="btn btn-warning" ng-click="employee.edit()" ng-hide="employee.editing">Edit</button>
+			<button class="btn btn-success" ng-click="employee.save()" ng-show="employee.editing">Save</button>
+			<button class="btn btn-danger" ng-click="employee.cancel()" ng-show="employee.editing">Cancel</button>
 		</div>
+
+		<!-- employee info -->
 		<div class="col-xs-12 col-md-4 text-center">
-			<h3 class="margin-top-reset">{{employee.name.last}}, {{employee.name.first}}</h3>
-			<img ng-src="{{employee.image}}" image-fallback="images/user.png" class="employee-avatar">
+			<h3 class="margin-top-reset">{{employee.employeeData.name.last}}, {{employee.employeeData.name.first}}</h3>
+			<img ng-src="{{employee.employeeData.image}}" image-fallback="/assets/images/employees/user.png" class="employee-avatar">
 		</div>
-			<div class="col-xs-12 col-sm-6 col-md-4 form-offset">
-				<div class="form-group">
-					<label class="control-label">Employee ID</label>
-					<div>#{{employeeData.empId}}</div>
-				</div>
-				<div class="form-group">
+		<div class="col-xs-12 col-sm-6 col-md-4 form-offset">
+			<div class="form-group">
+				<label class="control-label">Employee ID</label>
+				<div>#{{employee.employeeData.empId}}</div>
+			</div>
+			<div class="form-group">
 				<label class="control-label">First Name:</label>
-					<edit-in-line value="employeeData.name.first"editing="editing" />
-				</div>
-				<div class="form-group">
-					<label>Last Name:</label>
-					<edit-in-line value="employeeData.name.last"editing="editing" />
-				</div>
-				<div class="form-group">
-					<label>Team:</label>
-					<edit-in-line value="employee.team" editing="editing" edit-list="teams" edit-option="t.name for t in teams"	edit-type="select" display-value="employee.team.name" />
-				</div>
+				<edit-in-line value="employee.employeeData.name.first" editing="employee.editing" />
 			</div>
-				<div class="col-xs-12 col-sm-6 col-md-4 form-offset">
-					<div class="form-group">
-						<label class="control-label">Address</label>
-						<ul class="address-lines">
-						<li ng-repeat="line in employee.address.lines track by $index">
-						<span ng-hide="editing">{{line}}</span>
-					<div ng-show="editing" class="input-group address-edit">
-						<input type="text" class="form-control"	ng-model="employee.address.lines[$index]" />
-						<span class="input-group-btn">
-							<button ng-click="address.addLine($index)"class="btn btn-success">
-								<i class="fa fa-plus"></i>
-							</button>
-							<button ng-click="address.removeLine($index)" ng-disabled="employee.address.lines.length === 1" class="btn btn-danger">
-							<i class="fa fa-trash-o"></i>
-							</button>
-						</span>
-					</div>
-				</li>
-				<li>
-					<edit-in-line value="employee.address.city"	editing="editing" />
-				</li>
-				<li>
-					<span ng-hide="editing">{{employee.address.state}},	{{employee.address.zip}}</span>
-				</li>
-				<li ng-show="editing">
-					<edit-in-line ng-show="editing" edit-type="select" value="employee.address.state" editing="editing" edit-list="states" edit-option='s for s in states' />
-				</li>
-				<li ng-show="editing">
-					<edit-in-line value="employee.address.zip" editing="editing" edit-type="number" />
-				</li>
-				</ul>
+			<div class="form-group">
+				<label>Last Name:</label>
+				<edit-in-line value="employee.employeeData.name.last" editing="employee.editing" />
+			</div>
+			<div class="form-group">
+				<label>Team:</label>
+				<edit-in-line value="employee.employeeData.team" editing="employee.editing" edit-list="employee.teams" edit-option="t.name for t in employee.teams"	edit-type="select" display-value="employee.employeeData.team.name" />
 			</div>
 		</div>
+	<!-- end employee info -->
+
+	<!-- employee address -->
+		<div class="col-xs-12 col-sm-6 col-md-4 form-offset">
+			<div class="form-group">
+				<label class="control-label">Address</label>
+
+				<ul class="address-lines">
+					<li ng-repeat="line in employee.employeeData.address.lines track by $index">
+						<span ng-hide="employee.editing">{{line}}</span>
+						<div ng-show="employee.editing" class="input-group address-edit">
+							<input type="text" class="form-control"	ng-model="employee.employeeData.address.lines[$index]" />
+							<span class="input-group-btn">
+								<button ng-click="employee.employeeData.address.addLine($index)"class="btn btn-success">
+								<i class="fa fa-plus"></i>
+								</button>
+								<button ng-click="employee.employeeData.address.removeLine($index)" ng-disabled="employee.address.lines.length === 1" class="btn btn-danger">
+								<i class="fa fa-trash-o"></i>
+								</button>
+							</span>
+						</div>
+					</li>
+					<li>
+						<edit-in-line value="employee.employeeData.address.city"	editing="employee.editing" />
+					</li>
+					<li>
+						<span ng-hide="employee.editing">{{employee.employeeData.address.state}},	{{employee.employeeData.address.zip}}</span>
+					</li>
+					<li ng-show="employee.editing">
+						<edit-in-line ng-show="employee.editing" edit-type="select" value="employee.employeeData.address.state" editing="employee.editing" edit-list="employee.states" edit-option='s for s in employee.states' />
+					</li>
+					<li ng-show="employee.editing">
+						<edit-in-line value="employee.employeeData.address.zip" editing="employee.editing" edit-type="number" />
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	<!-- end employee address -->
 	</div>
 </div>
+
+<div class="alert alert-block alert-error notification fade in" data-ng-show="employee.displayEmployeeDeletePopup">
+    <h6>Are you sure you want to delete this employee?</h6>
+    <div class="form-controls-alert">
+        <a href="" class="btn btn-default" data-ng-click="employee.showDeleteEmployeePopup(false)">No</a>
+        <a href="" class="btn btn-danger" data-ng-click="employee.deleteEmployee(employee.employeeData._id)">Yes</a>
+    </div>
+</div><!-- end alert -->
+<!-- Delete button -->    
+<button class="btn btn-danger btn-sm" data-ng-click="employee.showDeleteEmployeePopup(true)">Delete Employee</button>

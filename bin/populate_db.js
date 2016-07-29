@@ -13,7 +13,7 @@ var data = {
 			first: 'Colin',
 			last: 'Ihrig'
 		},
-		image: 'images/employees/1000003.png',
+		image: '/assets/images/employees/1.jpg',
 		address: {
 			lines: ['11 Wall Street'],
 			city: 'New York',
@@ -26,7 +26,7 @@ var data = {
 		name: {
 			first: 'Adam',
 			last: 'Bretz'
-		},
+		},image: '/assets/images/employees/2.jpg',
 		address: {
 			lines: ['46 18th St', 'St. 210'],
 			city: 'Pittsburgh',
@@ -39,7 +39,7 @@ var data = {
 		name: {
 			first: 'Matt',
 			last: 'Liegey'
-		},
+		}, image: '/assets/images/employees/3.jpg',
 		address: {
 			lines: ['2 S Market Square', '(Market Square)'],
 			city: 'Pittsburgh',
@@ -52,7 +52,7 @@ var data = {
 		name: {
 			first: 'Aleksey',
 			last: 'Smolenchuk'
-		},image: 'images/employees/1000025.png',
+		},image: '/assets/images/employees/4.jpg',
 		address: {
 			lines: ['3803 Forbes Ave'],
 			city: 'Pittsburgh',
@@ -65,7 +65,7 @@ var data = {
 		name: {
 			first: 'Sarah',
 			last: 'Gay'
-		},
+		},image: '/assets/images/employees/5.jpg',
 		address: {
 			lines: ['8651 University Blvd'],
 			city: 'Pittsburgh',
@@ -78,7 +78,7 @@ var data = {
 		name: {
 			first: 'Dave',
 			last: 'Beshero'
-		},
+		},image: '/assets/images/employees/6.jpg',
 		address: {
 			lines: ['1539 Washington Rd'],
 			city: 'Mt Lebanon',
